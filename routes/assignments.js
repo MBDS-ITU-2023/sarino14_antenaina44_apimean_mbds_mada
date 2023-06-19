@@ -40,21 +40,34 @@ function getAssignment(req, res){
 
 // Ajout d'un assignment (POST)
 function postAssignment(req, res){
-    let assignment = new Assignment();
-    assignment.id = req.body.id;
-    assignment.nom = req.body.nom;
-    assignment.dateDeRendu = req.body.dateDeRendu;
-    assignment.rendu = req.body.rendu;
-
-    console.log("POST assignment reçu :");
-    console.log(assignment)
-
-    assignment.save( (err) => {
-        if(err){
-            res.send('cant post assignment ', err);
+    Assignment.countDocuments({}, (err, count) => {
+        if (err) {
+            res.send('Impossible de compter l\'assignment ', err);
+            return;
         }
-        res.json({ message: `${assignment.nom} saved!`})
-    })
+        let assignment = new Assignment();
+        assignment.id = count + 1;
+        assignment.nom = req.body.nom;
+        assignment.dateDeRendu = req.body.dateDeRendu;
+        assignment.rendu = req.body.rendu;
+        assignment.auteurName = req.body.auteurName;
+        assignment.auteurPhoto = req.body.auteurPhoto;
+        assignment.note = req.body.note;
+        assignment.remarques = req.body.remarques;
+        assignment.matiere = req.body.matiereId;
+
+        console.log("POST assignment reçu :");
+        console.log(assignment);
+
+        assignment.save((errSave) => {
+            if (errSave) {
+                res.send('Impossible de créer l\'assignment', errSave);
+                return;
+            }
+
+            res.json({ message: `${assignment.nom} enregistré!` });
+        });
+    });
 }
 
 // Update d'un assignment (PUT)
