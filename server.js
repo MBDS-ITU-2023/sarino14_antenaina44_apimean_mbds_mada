@@ -63,6 +63,9 @@ app.route(prefix + '/matieres')
 app.route(prefix + '/matieres/:id')
   .get(matiere.getMatieres)
   .delete(matiere.deleteMatiere);
+
+app.route(prefix + '/matieresforlist')
+  .get(matiere.getMatieresSansPagination);
   
 
 // On démarre le serveur

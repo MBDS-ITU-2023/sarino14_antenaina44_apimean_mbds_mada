@@ -89,4 +89,4 @@ function deleteMatiere(req, res) {
 
 
 
-module.exports = { getMatieres, postMatiere, getMatiere, updateMatiere, deleteMatiere };
+module.exports = { getMatieres, postMatiere, getMatiere, getMatieresSansPagination, updateMatiere, deleteMatiere };
