@@ -4,6 +4,7 @@ let bodyParser = require('body-parser');
 let assignment = require('./routes/assignments');
 
 let mongoose = require('mongoose');
+const matiere = require('./routes/matieres');
 mongoose.Promise = global.Promise;
 //mongoose.set('debug', true);
 
@@ -53,6 +54,15 @@ app.route(prefix + '/assignments')
 app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
   .delete(assignment.deleteAssignment);
+
+app.route(prefix + '/matieres')
+  .get(matiere.getMatieres)
+  .post(matiere.postMatiere)
+  .put(matiere.updateMatiere);
+
+app.route(prefix + '/matieres/:id')
+  .get(matiere.getMatieres)
+  .delete(matiere.deleteMatiere);
   
 
 // On démarre le serveur
